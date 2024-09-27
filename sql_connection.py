@@ -80,3 +80,8 @@ def fetch_data(connection):
     # Convert to DataFrame
     df_fetched = pd.DataFrame(result, columns=columns)
     return df_fetched
+
+
+def connectiom_close(connection):
+    connection.close()
+    print("Connection closed")
