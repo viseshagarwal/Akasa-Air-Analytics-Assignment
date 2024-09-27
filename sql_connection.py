@@ -20,18 +20,23 @@ def create_connection(host_name, user_name, user_password, db_name, db_port):
     return connection
 
 
-# Insert data into MySQL
 def insert_data(connection, df):
+
     cursor = connection.cursor()
+
+    # drop table if exists
+    cursor.execute("DROP TABLE IF EXISTS flights")
+    connection.commit()
 
     # Creating table with primary key
     create_table_query = """
     CREATE TABLE IF NOT EXISTS flights (
-        ID INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-incrementing ID as primary key
+        ID INT AUTO_INCREMENT PRIMARY KEY,  
         FlightNumber VARCHAR(255),
-        DepartureDateTime DATETIME,
-        ArrivalDateTime DATETIME,
-        FlightDuration TIME,
+        DepartureDate DATE,
+        DepartureTime TIME,
+        ArrivalDate DATE,
+        ArrivalTime TIME,
         Airline VARCHAR(255),
         DelayMinutes FLOAT
     );
@@ -42,23 +47,20 @@ def insert_data(connection, df):
     # Insert data
     insert_query = """
     INSERT INTO flights (
-        FlightNumber, DepartureDateTime, ArrivalDateTime, FlightDuration, Airline, DelayMinutes
-    ) VALUES (%s, %s, %s, %s, %s, %s)
+        FlightNumber, DepartureDate, DepartureTime, ArrivalDate, ArrivalTime, Airline, DelayMinutes
+    ) VALUES (%s, %s, %s, %s, %s, %s, %s)
     """
 
     # Insert each row from the DataFrame
     for _, row in df.iterrows():
-        # Convert Timedelta to HH:MM:SS
-        total_seconds = int(row["FlightDuration"].total_seconds())
-        flight_duration_str = f"{total_seconds // 3600:02}:{(total_seconds // 60) % 60:02}:{total_seconds % 60:02}"  # Format as HH:MM:SS
-
         cursor.execute(
             insert_query,
             (
                 row["FlightNumber"],
-                row["DepartureDateTime"],
-                row["ArrivalDateTime"],
-                flight_duration_str,  # Use the formatted duration
+                row["DepartureDate"],
+                row["DepartureTime"],
+                row["ArrivalDate"],
+                row["ArrivalTime"],
                 row["Airline"],
                 row["DelayMinutes"],
             ),
