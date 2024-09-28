@@ -111,6 +111,7 @@ def normalize_data(df, messages):
 
     messages.append("<p>Calculated FlightDuration in minutes.</p>")
 
+    df.to_csv("reports/normalized_data.csv", index=False)
     return df
 
 
@@ -148,7 +149,7 @@ def data_analysis(df, messages):
     plt.xlabel("Delay Minutes")
     plt.ylabel("Frequency")
     plt.tight_layout()
-    plt.savefig("report/delay_distribution.png")
+    plt.savefig("reports/delay_distribution.png")
     plt.close()
     messages.append(
         "<p>Saved plot: <a href='delay_distribution.png' target='_blank'>Distribution of Flight Delays</a></p><br/> <img src='delay_distribution.png'>"
@@ -172,7 +173,7 @@ def data_analysis(df, messages):
     plt.xlabel("Airline")
     plt.ylabel("Average Delay (Minutes)")
     plt.tight_layout()
-    plt.savefig("report/average_delay_airline.png")
+    plt.savefig("reports/average_delay_airline.png")
     plt.close()
     messages.append(
         "<p>Saved plot: <a href='average_delay_airline.png' target='_blank'>Average Delay by Airline</a></p><br/><img src='average_delay_airline.png'>"
@@ -191,7 +192,7 @@ def data_analysis(df, messages):
     plt.ylabel("Delay Minutes")
     plt.legend(title="Airline", bbox_to_anchor=(1.05, 1), loc="upper left")
     plt.tight_layout()
-    plt.savefig("report/departure_vs_delay.png")
+    plt.savefig("reports/departure_vs_delay.png")
     plt.close()
     messages.append(
         "<p>Saved plot: <a href='departure_vs_delay.png' target='_blank'>Flight Delays vs Departure Time</a></p> <br/><img src='departure_vs_delay.png'>"
@@ -211,7 +212,7 @@ def data_analysis(df, messages):
     plt.ylabel("Average Delay (Minutes)")
     plt.xticks(range(0, 24))
     plt.tight_layout()
-    plt.savefig("report/average_delay_hour.png")
+    plt.savefig("reports/average_delay_hour.png")
     plt.close()
     messages.append(
         "<p>Saved plot: <a href='average_delay_hour.png' target='_blank'>Average Delay by Departure Hour</a></p> <br/><img src='average_delay_hour.png'>"
@@ -276,7 +277,7 @@ def generate_report(messages, delay_summary, average_delay_airline):
     """
 
     # Write to HTML file
-    with open("report/aviation_report.html", "w") as report_file:
+    with open("reports/aviation_report.html", "w") as report_file:
         report_file.write(html_content)
 
     print("HTML report generated and saved as 'aviation_report.html'.")
@@ -284,6 +285,10 @@ def generate_report(messages, delay_summary, average_delay_airline):
 
 def main():
     messages = []
+
+    # create a new folder called as report if not exists
+    if not os.path.exists("reports"):
+        os.makedirs("reports")
 
     # Read data from CSV
     messages.append("<h2>Reading Data...</h2>")
@@ -301,15 +306,10 @@ def main():
     df_normalized = normalize_data(df_cleaned, messages)
 
     # # Insert data into MySQL and fetch back
-    # Uncomment the following lines if you want to insert and fetch data from MySQL
     # df_fetched = insert_data(df_normalized, messages)
 
     # Perform data analysis
     delay_summary, average_delay_airline = data_analysis(df_normalized, messages)
-
-    # create a new folder called as report if not exists
-    if not os.path.exists("report"):
-        os.makedirs("report")
 
     # Generate report
     generate_report(messages, delay_summary, average_delay_airline)
