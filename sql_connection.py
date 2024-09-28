@@ -3,7 +3,6 @@ from mysql.connector import Error
 import pandas as pd
 
 
-# MySQL connection setup
 def create_connection(host_name, user_name, user_password, db_name, db_port):
     connection = None
     try:
@@ -69,7 +68,6 @@ def insert_data(connection, df):
     print("Data inserted successfully")
 
 
-# Fetch data from MySQL
 def fetch_data(connection):
     cursor = connection.cursor()
     fetch_query = "SELECT * FROM flights"
@@ -82,6 +80,6 @@ def fetch_data(connection):
     return df_fetched
 
 
-def connectiom_close(connection):
+def connection_close(connection):
     connection.close()
     print("Connection closed")
