@@ -1,5 +1,6 @@
 import pandas as pd
-import numpy as np
+
+# import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
@@ -35,14 +36,11 @@ def clean_data(df, messages):
     missing_before = df.isnull().sum().to_frame().to_html()
     messages.append(missing_before)
 
-    # Fill NaN with 0 (assuming no delay)
     df["DelayMinutes"] = df["DelayMinutes"].fillna(0)
-
     messages.append("<h3>Missing Values After Handling:</h3>")
     missing_after = df.isnull().sum().to_frame().to_html()
     messages.append(missing_after)
 
-    # Check for duplicates
     duplicate_count = df.duplicated().sum()
     messages.append(
         f"<p><strong>Number of duplicate entries:</strong> {duplicate_count}</p>"
@@ -58,7 +56,6 @@ def clean_data(df, messages):
     df["DepartureTime_24"] = df["DepartureTime"].apply(convert_to_24hr)
     df["ArrivalTime_24"] = df["ArrivalTime"].apply(convert_to_24hr)
 
-    # Combine DepartureDate and DepartureTime into a single datetime
     df["DepartureDateTime"] = pd.to_datetime(
         df["DepartureDate"] + " " + df["DepartureTime"], format="%m/%d/%Y %I:%M %p"
     )
@@ -72,7 +69,6 @@ def clean_data(df, messages):
         f"<p><strong>Number of inconsistent time entries:</strong> {inconsistent_times.shape[0]}</p>"
     )
 
-    # Remove inconsistent entries
     df = df[df["ArrivalDateTime"] >= df["DepartureDateTime"]]
 
     return df
@@ -121,14 +117,11 @@ def insert_data(connection, df, messages):
     # Create connection
     connection = create_connection(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_PORT)
 
-    # Insert data into MySQL (assuming insert_data function handles insertion)
     insert_data(connection, df)
-
     messages.append("<p>Data inserted into MySQL successfully.</p>")
 
     # Fetch data back from MySQL
     df_fetched = fetch_data(connection)
-
     messages.append("<p>Data fetched from MySQL successfully.</p>")
 
     return df_fetched
@@ -149,6 +142,7 @@ def data_analysis(df, messages):
     plt.xlabel("Delay Minutes")
     plt.ylabel("Frequency")
     plt.tight_layout()
+
     plt.savefig("reports/delay_distribution.png")
     plt.close()
     messages.append(
@@ -241,8 +235,7 @@ def data_analysis(df, messages):
     return delay_summary, average_delay_airline
 
 
-def generate_report(messages, delay_summary, average_delay_airline):
-    # messages.append("<h2>Generating HTML Report...</h2>")
+def generate_report(messages):
 
     # Start HTML content
     html_content = """
@@ -280,13 +273,13 @@ def generate_report(messages, delay_summary, average_delay_airline):
     with open("reports/aviation_report.html", "w") as report_file:
         report_file.write(html_content)
 
-    print("HTML report generated and saved as 'aviation_report.html'.")
+    print("HTML report generated and saved as 'reports/aviation_report.html'.")
 
 
 def main():
     messages = []
 
-    # create a new folder called as report if not exists
+    # create a new folder called as reports if not exists
     if not os.path.exists("reports"):
         os.makedirs("reports")
 
@@ -312,7 +305,7 @@ def main():
     delay_summary, average_delay_airline = data_analysis(df_normalized, messages)
 
     # Generate report
-    generate_report(messages, delay_summary, average_delay_airline)
+    generate_report(messages)
 
 
 if __name__ == "__main__":
