@@ -3,18 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
-import warnings
 from sql_connection import *
 import os
 from dotenv import load_dotenv
 import scipy.stats as stats
 
-# from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-# from matplotlib.figure import Figure
-# import base64
-# from io import BytesIO
 
-warnings.filterwarnings("ignore")
 load_dotenv()
 
 DB_USERNAME = os.getenv("DB_USERNAME")
@@ -168,7 +162,11 @@ def data_analysis(df, messages):
     # Plot average delay per airline
     plt.figure(figsize=(8, 5))
     sns.barplot(
-        data=average_delay_airline, x="Airline", y="DelayMinutes", palette="viridis"
+        data=average_delay_airline,
+        x="Airline",
+        y="DelayMinutes",
+        palette="viridis",
+        hue="Airline",
     )
     plt.title("Average Delay by Airline")
     plt.xlabel("Airline")
