@@ -4,54 +4,54 @@
     <head>
         <title>Aviation Data Report</title>
         <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 40px; 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
             line-height: 1.6;
         }
-        h1, h2, h3 { 
-            color: #2E4053; 
+        h1, h2, h3 {
+            color: #2E4053;
         }
-        h1 { 
-            text-align: center; 
+        h1 {
+            text-align: center;
             margin-bottom: 30px;
         }
         h2 {
             margin-top: 30px;
         }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-bottom: 20px; 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
             font-size: 14px;
         }
-        table, th, td { 
-            border: 1px solid #ddd; 
+        table, th, td {
+            border: 1px solid #ddd;
         }
-        th, td { 
-            padding: 10px; 
-            text-align: left; 
+        th, td {
+            padding: 10px;
+            text-align: left;
         }
-        th { 
-            background-color: #f2f2f2; 
+        th {
+            background-color: #f2f2f2;
         }
-        tr:nth-child(even) { 
-            background-color: #f9f9f9; 
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
-        tr:hover { 
-            background-color: #f1f1f1; 
+        tr:hover {
+            background-color: #f1f1f1;
         }
-        a { 
-            text-decoration: none; 
-            color: #2980B9; 
+        a {
+            text-decoration: none;
+            color: #2980B9;
         }
-        a:hover { 
-            text-decoration: underline; 
+        a:hover {
+            text-decoration: underline;
             color: #1A5276;
         }
-        img { 
-            max-width: 100%; 
-            height: auto; 
+        img {
+            max-width: 100%;
+            height: auto;
             display: block;
             margin-top: 10px;
             margin-bottom: 20px;
@@ -125,7 +125,7 @@
       <td>NaN</td>
     </tr>
   </tbody>
-</table><h2>Inserting Data into MySQL...</h2><p>Data inserted into MySQL successfully.</p><p>Data fetched from MySQL successfully.</p><h2>Handling Missing Values...</h2><h3>Missing Values Before Handling:</h3><table border="1" class="dataframe">
+</table><br/><hr><h2>Inserting Data into MySQL...</h2><p>Data inserted into MySQL successfully.</p><p>Data fetched from MySQL successfully.</p><br/><hr><h2>Handling Missing Values...</h2><h3>Missing Values Before Handling:</h3><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -163,7 +163,7 @@
     </tr>
     <tr>
       <th>DelayMinutes</th>
-      <td>6</td>
+      <td>2</td>
     </tr>
   </tbody>
 </table><h3>Missing Values After Handling:</h3><table border="1" class="dataframe">
@@ -207,7 +207,7 @@
       <td>0</td>
     </tr>
   </tbody>
-</table><h2>Checking for Duplicates...</h2><p><strong>Number of duplicate entries:</strong> 24</p><p><strong>Number of entries after removing duplicates:</strong> 12</p><h2>Checking for Inconsistent Time Entries...</h2><p><strong>Number of inconsistent time entries:</strong> 1</p><p><strong>Number of entries after removing inconsistent time entries:</strong> 11</p><h2>Normalizing Data...</h2><p>Converted DepartureDate and ArrivalDate to YYYY-MM-DD format.</p><p>Replaced original time columns with 24-hour format and removed temporary columns.</p><p>Calculated FlightDuration in minutes.</p><p>Normalized data saved as <a href='reports/normalized_data.csv' target='_blank'>normalized_data.csv</a>.</p><h2>Performing Data Analysis...</h2><h3>Delay Minutes Summary:</h3><table border="1" class="dataframe">
+</table><br/><hr><h2>Checking for Duplicates...</h2><p><strong>Number of duplicate entries:</strong> 0</p><p><strong>Number of entries after removing duplicates:</strong> 12</p><br/><hr><h2>Checking for Inconsistent Time Entries...</h2><p><strong>Number of inconsistent time entries:</strong> 1</p><p><strong>Number of entries after removing inconsistent time entries:</strong> 11</p><p>Converted DepartureTime and ArrivalTime to 24-hour format and combined with dates.</p><br/><hr><h2>Normalizing Data...</h2><p>Converted DepartureDate and ArrivalDate to YYYY-MM-DD format.</p><p>Replaced original time columns with 24-hour format and removed temporary columns.</p><p>Calculated FlightDuration in minutes.</p><p>Normalized data saved as <a href='reports/normalized_data.csv' target='_blank'>normalized_data.csv</a>.</p><br/><hr><h2>Performing Data Analysis...</h2><h3>Delay Minutes Summary:</h3><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -248,7 +248,7 @@
       <td>60.000000</td>
     </tr>
   </tbody>
-</table><p>Saved plot: <a href='delay_distribution.png' target='_blank'>Distribution of Flight Delays</a></p><br/> <img src='delay_distribution.png'><h3>Average Delay per Airline:</h3><table border="1" class="dataframe">
+</table><br/><hr><center><h2>Plots:</h2></center><p>Saved plot: <a href='delay_distribution.png' target='_blank'>Distribution of Flight Delays</a></p><br/> <img src='delay_distribution.png'><h2>Insights:</h2><p>1. The distribution shows that the majority of flights had delays between 0 and 10 minutes, with the highest frequency in this range.</p><p>2. The overall shape of the histogram suggests a right-skewed distribution. Most delays are concentrated at the lower end, with fewer flights experiencing significant delays (over 30 minutes).</p><p>3. A significant proportion of flights face relatively short delays (below 15 minutes).</p><br/><hr><h2>Average Delay per Airline:</h2><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th>Airline</th>
@@ -269,7 +269,7 @@
       <td>22.5</td>
     </tr>
   </tbody>
-</table><p>Saved plot: <a href='average_delay_airline.png' target='_blank'>Average Delay by Airline</a></p><br/><img src='average_delay_airline.png'><p>Saved plot: <a href='departure_vs_delay.png' target='_blank'>Flight Delays vs Departure Time</a></p> <br/><img src='departure_vs_delay.png'><p>Saved plot: <a href='average_delay_hour.png' target='_blank'>Average Delay by Departure Hour</a></p> <br/><img src='average_delay_hour.png'><h3>ANOVA Result:</h3><p>F-statistic: 1.8107, p-value: 0.2246</p><h3>Interpretation:</h3><p>There is <strong>no significant difference</strong> in delays between airlines.</p>
+</table><p>Saved plot: <a href='average_delay_airline.png' target='_blank'>Average Delay by Airline</a></p><br/><img src='average_delay_airline.png'><h2>Insights:</h2><p>1. The average delay times vary significantly across different airlines.</p><p>2. American Airlines has the highest average delay, while Delta Airline has the lowest average delay.</p><p>3. The difference in average delay times suggests variations in operational efficiency and performance among airlines.</p><br/><hr><p>Saved plot: <a href='departure_vs_delay.png' target='_blank'>Flight Delays vs Departure Time</a></p> <br/><img src='departure_vs_delay.png'><h2>Insights:</h2><p>1. Evening Delays: Delays increase significantly after 16:00, especially for United and American Airlines.</p><p>2. Delta's Punctuality: Delta consistently has minimal delays.</p><p>3. American Airlines Peaks: American Airlines faces large delays around morning 8:00 and night 20:00.</p><br/><hr><p>Saved plot: <a href='average_delay_hour.png' target='_blank'>Average Delay by Departure Hour</a></p> <br/><img src='average_delay_hour.png'><h2>Insights:</h2><p> 1. High delays in the evening: Delays peak after 17:00, with the highest around 20:00 (60+ minutes).</p><p>2. Minimal delays at midday: Almost no delays between 14:00 and 15:00.</p><p>3. Morning decline: Delays gradually decrease from 9:00 to 13:00.</p><br/><hr><h3>ANOVA Result:</h3><p>F-statistic: 1.8107, p-value: 0.2246</p><h3>Interpretation:</h3><p>There is <strong>no significant difference</strong> in delays between airlines.</p><br/><hr>
     </body>
     </html>
     
