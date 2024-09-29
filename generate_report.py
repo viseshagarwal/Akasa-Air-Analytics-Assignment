@@ -223,7 +223,7 @@ def generate_report(messages):
             line-height: 1.6;
         }
         h1, h2, h3 {
-            color: #2E4053;
+            color: #2e4053;
         }
         h1 {
             text-align: center;
