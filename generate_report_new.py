@@ -64,7 +64,8 @@ def check_duplicates(df, messages):
         ]
     ).sum()
     messages.append(
-        f"<p><strong>Number of duplicate entries:</strong> {duplicate_count}</p>"
+        f"<p><strong>Number of duplicate entries:</strong> {
+            duplicate_count}</p>"
     )
 
     # Remove duplicates
@@ -81,7 +82,8 @@ def check_duplicates(df, messages):
     )
 
     messages.append(
-        f"<p><strong>Number of entries after removing duplicates:</strong> {df.shape[0]}</p>"
+        f"<p><strong>Number of entries after removing duplicates:</strong> {
+            df.shape[0]}</p>"
     )
     return df
 
@@ -98,13 +100,15 @@ def check_inconsistent_time_entries(df, messages):
     # Inconsistent time entries
     inconsistent_time_entries = df[df["DepartureTime"] > df["ArrivalTime"]]
     messages.append(
-        f"<p><strong>Number of inconsistent time entries:</strong> {inconsistent_time_entries.shape[0]}</p>"
+        f"<p><strong>Number of inconsistent time entries:</strong> {
+            inconsistent_time_entries.shape[0]}</p>"
     )
 
     # Remove inconsistent time entries
     df = df[df["DepartureTime"] <= df["ArrivalTime"]]
     messages.append(
-        f"<p><strong>Number of entries after removing inconsistent time entries:</strong> {df.shape[0]}</p>"
+        f"<p><strong>Number of entries after removing inconsistent time entries:</strong> {
+            df.shape[0]}</p>"
     )
 
     # Convert DepartureTime and ArrivalTime to 24-hour format
@@ -192,7 +196,6 @@ def insert_data(df, messages):
         # fetch data
         df_fetched = pd.read_sql("SELECT * FROM aviation_data", engine)
         messages.append("<p>Data fetched from MySQL successfully.</p>")
-        print(df_fetched.head())
 
     except Exception as e:
         print(f"Error: {e}")
@@ -312,7 +315,8 @@ def data_analysis(df, messages):
     )
 
     # Average delay per airline
-    average_delay_airline = df.groupby("Airline")["DelayMinutes"].mean().reset_index()
+    average_delay_airline = df.groupby(
+        "Airline")["DelayMinutes"].mean().reset_index()
     messages.append("<h3>Average Delay per Airline:</h3>")
     messages.append(average_delay_airline.to_html(index=False))
 
@@ -336,7 +340,8 @@ def data_analysis(df, messages):
     )
 
     # Extract hour from DepartureTime
-    df["DepartureHour"] = pd.to_datetime(df["DepartureTime"], format="%H:%M").dt.hour
+    df["DepartureHour"] = pd.to_datetime(
+        df["DepartureTime"], format="%H:%M").dt.hour
 
     # Scatter plot of DepartureHour vs DelayMinutes
     plt.figure(figsize=(8, 5))
@@ -383,7 +388,8 @@ def data_analysis(df, messages):
 
     messages.append("<h3>ANOVA Result:</h3>")
     messages.append(
-        f"<p>F-statistic: {anova_result.statistic:.4f}, p-value: {anova_result.pvalue:.4f}</p>"
+        f"<p>F-statistic: {anova_result.statistic:.4f}, p-value: {
+            anova_result.pvalue:.4f}</p>"
     )
 
     # Interpretation
@@ -394,7 +400,7 @@ def data_analysis(df, messages):
     messages.append("<h3>Interpretation:</h3>")
     messages.append(interpretation)
 
-    return delay_summary, average_delay_airline
+    # return delay_summary, average_delay_airline
 
 
 def main():
@@ -408,7 +414,8 @@ def main():
     messages.append("<h2>Reading Data...</h2>")
     df = read_data_csv()
     messages.append(
-        f"<p>Loaded dataset with {df.shape[0]} records and {df.shape[1]} columns.</p>"
+        f"<p>Loaded dataset with {df.shape[0]} records and {
+            df.shape[1]} columns.</p>"
     )
     messages.append("<h3>Sample Data:</h3>")
     messages.append(df.head().to_html())
@@ -432,10 +439,8 @@ def main():
         "<p>Normalized data saved as <a href='reports/normalized_data.csv' target='_blank'>normalized_data.csv</a>.</p>"
     )
 
-    #
-
     # Perform data analysis
-    delay_summary, average_delay_airline = data_analysis(df_normalized, messages)
+    data_analysis(df_normalized, messages)
 
     # Save cleaned data to CSV
     df.to_csv("aviation_data_cleaned.csv", index=False)
