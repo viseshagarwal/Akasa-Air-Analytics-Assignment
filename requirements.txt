@@ -1,6 +1,7 @@
 pandas
-dotenv
+python-dotenv
 matplotlib
 seaborn
 sqlalchemy
 scipy
+pymysql

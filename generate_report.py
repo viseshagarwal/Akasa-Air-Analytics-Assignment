@@ -64,9 +64,7 @@ def check_duplicates(df, messages):
         ]
     ).sum()
     messages.append(
-        f"<p><strong>Number of duplicate entries:</strong> {
-            duplicate_count}</p>"
-    )
+        f"<p><strong>Number of duplicate entries:</strong> {duplicate_count}</p>")
 
     # Remove duplicates
     df = df.drop_duplicates(
@@ -82,9 +80,7 @@ def check_duplicates(df, messages):
     )
 
     messages.append(
-        f"<p><strong>Number of entries after removing duplicates:</strong> {
-            df.shape[0]}</p>"
-    )
+        f"< p > <strong > Number of entries after removing duplicates: < /strong > {df.shape[0]} < /p >")
     messages.append("<br/><hr>")
     return df
 
@@ -101,16 +97,12 @@ def check_inconsistent_time_entries(df, messages):
     # Inconsistent time entries
     inconsistent_time_entries = df[df["DepartureTime"] > df["ArrivalTime"]]
     messages.append(
-        f"<p><strong>Number of inconsistent time entries:</strong> {
-            inconsistent_time_entries.shape[0]}</p>"
-    )
+        f"< p > <strong > Number of inconsistent time entries: < /strong > {inconsistent_time_entries.shape[0]} < /p >")
 
     # Remove inconsistent time entries
     df = df[df["DepartureTime"] <= df["ArrivalTime"]]
     messages.append(
-        f"<p><strong>Number of entries after removing inconsistent time entries:</strong> {
-            df.shape[0]}</p>"
-    )
+        f"< p > <strong > Number of entries after removing inconsistent time entries: < /strong > {df.shape[0]} < /p >")
 
     # Convert DepartureTime and ArrivalTime to 24-hour format
     df["DepartureTime_24"] = df["DepartureTime"].apply(convert_to_24hr)
@@ -424,9 +416,7 @@ def data_analysis(df, messages):
 
     messages.append("<h3>ANOVA Result:</h3>")
     messages.append(
-        f"<p>F-statistic: {anova_result.statistic:.4f}, p-value: {
-            anova_result.pvalue:.4f}</p>"
-    )
+        f"< p > F-statistic: {anova_result.statistic: .4f}, p-value: {anova_result.pvalue: .4f} < /p >")
 
     # Interpretation
     if anova_result.pvalue < 0.05:
@@ -490,8 +480,8 @@ def main():
     # Read data from CSV
     messages.append("<h2>Reading Data...</h2>")
     df = read_data_csv()
-    messages.append(f"<p>Loaded dataset with {df.shape[0]} records and {
-                    df.shape[1]} columns.</p>")
+    messages.append(
+        f"< p > Loaded dataset with {df.shape[0]} records and {df.shape[1]} columns. < /p >")
     messages.append("<h3>Sample Data:</h3>")
     messages.append(df.head().to_html())
     messages.append("<br/><hr>")
