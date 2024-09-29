@@ -80,7 +80,7 @@ def check_duplicates(df, messages):
     )
 
     messages.append(
-        f"<p> <strong > Number of entries after removing duplicates: </strong > {df.shape[0]} </p >")
+        f"<p> <strong> Number of entries after removing duplicates: </strong> {df.shape[0]} </p>")
     messages.append("<br/><hr>")
     return df
 
@@ -95,14 +95,10 @@ def check_inconsistent_time_entries(df, messages):
     messages.append("<h2>Checking for Inconsistent Time Entries...</h2>")
 
     # Inconsistent time entries
-    inconsistent_time_entries = df[df["DepartureTime"] > df["ArrivalTime"]]
-    messages.append(
-        f"<p > <strong > Number of inconsistent time entries: </strong > {inconsistent_time_entries.shape[0]} </p >")
+    inconsistent_time_entries = pd.DataFrame()
 
-    # Remove inconsistent time entries
+    inconsistent_time_entries = df[df["DepartureTime"] > df["ArrivalTime"]]
     df = df[df["DepartureTime"] <= df["ArrivalTime"]]
-    messages.append(
-        f"<p > <strong > Number of entries after removing inconsistent time entries: </strong > {df.shape[0]} </p >")
 
     # Convert DepartureTime and ArrivalTime to 24-hour format
     df["DepartureTime_24"] = df["DepartureTime"].apply(convert_to_24hr)
@@ -115,6 +111,23 @@ def check_inconsistent_time_entries(df, messages):
     df["ArrivalDateTime"] = pd.to_datetime(
         df["ArrivalDate"] + " " + df["ArrivalTime"], format="%m/%d/%Y %I:%M %p"
     )
+
+    # Identify duplicate flights based on specific columns
+    duplicates = df[df.duplicated(
+        subset=['FlightNumber', 'Airline', 'DepartureDate', 'ArrivalDate', 'DepartureTime'])]
+
+    inconsistent_time_entries = pd.concat(
+        [inconsistent_time_entries, duplicates])
+
+    df = df.drop_duplicates(
+        subset=['FlightNumber', 'Airline', 'DepartureDate', 'ArrivalDate', 'DepartureTime'])
+
+    messages.append(
+        f"<p> <strong> Number of inconsistent time entries: </strong> {inconsistent_time_entries.shape[0]} </p>")
+
+    messages.append(
+        f"Number of entries after removing inconsistent time entries: {df.shape[0]}")
+
     messages.append(
         "<p>Converted DepartureTime and ArrivalTime to 24-hour format and combined with dates.</p>"
     )
@@ -418,7 +431,7 @@ def data_analysis(df, messages):
 
     messages.append("<h3>ANOVA Result:</h3>")
     messages.append(
-        f"<p> F-statistic: {anova_result.statistic: .4f}, p-value: {anova_result.pvalue: .4f} </p >")
+        f"<p> F-statistic: {anova_result.statistic: .4f}, p-value: {anova_result.pvalue: .4f} </p>")
 
     # Interpretation
     if anova_result.pvalue < 0.05:
@@ -485,7 +498,7 @@ def main():
     messages.append("<h2>Reading Data...</h2>")
     df = read_data_csv()
     messages.append(
-        f"<p> Loaded dataset with {df.shape[0]} records and {df.shape[1]} columns. </p >")
+        f"<p> Loaded dataset with {df.shape[0]} records and {df.shape[1]} columns. </p>")
     messages.append("<h3>Sample Data:</h3>")
     messages.append(df.head().to_html())
     messages.append("<br/><hr>")

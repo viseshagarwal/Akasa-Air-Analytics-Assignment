@@ -60,7 +60,7 @@
     </head>
     <body>
         <h1>Aviation Data Report</h1>
-    <h2>Reading Data...</h2><p> Loaded dataset with 12 records and 7 columns. </p ><h3>Sample Data:</h3><table border="1" class="dataframe">
+    <h2>Reading Data...</h2><p> Loaded dataset with 12 records and 7 columns. </p><h3>Sample Data:</h3><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -207,7 +207,7 @@
       <td>0</td>
     </tr>
   </tbody>
-</table><br/><hr><h2>Checking for Duplicates...</h2><p><strong>Number of duplicate entries:</strong> 36</p><p> <strong > Number of entries after removing duplicates: </strong > 12 </p ><br/><hr><h2>Checking for Inconsistent Time Entries...</h2><p > <strong > Number of inconsistent time entries: </strong > 1 </p ><p > <strong > Number of entries after removing inconsistent time entries: </strong > 11 </p ><p>Converted DepartureTime and ArrivalTime to 24-hour format and combined with dates.</p><br/><hr><h2>Normalizing Data...</h2><p>Converted DepartureDate and ArrivalDate to YYYY-MM-DD format.</p><p>Replaced original time columns with 24-hour format and removed temporary columns.</p><p>Calculated FlightDuration in minutes.</p><br/><hr><h2>Performing Data Analysis...</h2><h3>Delay Minutes Summary:</h3><table border="1" class="dataframe">
+</table><br/><hr><h2>Checking for Duplicates...</h2><p><strong>Number of duplicate entries:</strong> 36</p><p> <strong> Number of entries after removing duplicates: </strong> 12 </p><br/><hr><h2>Checking for Inconsistent Time Entries...</h2><p> <strong> Number of inconsistent time entries: </strong> 2 </p>Number of entries after removing inconsistent time entries: 10<p>Converted DepartureTime and ArrivalTime to 24-hour format and combined with dates.</p><br/><hr><h2>Normalizing Data...</h2><p>Converted DepartureDate and ArrivalDate to YYYY-MM-DD format.</p><p>Replaced original time columns with 24-hour format and removed temporary columns.</p><p>Calculated FlightDuration in minutes.</p><br/><hr><h2>Performing Data Analysis...</h2><h3>Delay Minutes Summary:</h3><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -217,15 +217,15 @@
   <tbody>
     <tr>
       <th>count</th>
-      <td>11.000000</td>
+      <td>10.000000</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>20.454545</td>
+      <td>19.500000</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>18.768930</td>
+      <td>19.500712</td>
     </tr>
     <tr>
       <th>min</th>
@@ -233,7 +233,7 @@
     </tr>
     <tr>
       <th>25%</th>
-      <td>7.500000</td>
+      <td>6.250000</td>
     </tr>
     <tr>
       <th>50%</th>
@@ -241,7 +241,7 @@
     </tr>
     <tr>
       <th>75%</th>
-      <td>27.500000</td>
+      <td>23.750000</td>
     </tr>
     <tr>
       <th>max</th>
@@ -269,7 +269,7 @@
       <td>22.5</td>
     </tr>
   </tbody>
-</table><p>Saved plot: <a href='average_delay_airline.png' target='_blank'>Average Delay by Airline</a></p><br/><img src='average_delay_airline.png'><h2>Insights:</h2><p>1. The average delay times vary significantly across different airlines.</p><p>2. American Airlines has the highest average delay, while Delta Airline has the lowest average delay.</p><p>3. The difference in average delay times suggests variations in operational efficiency and performance among airlines.</p><br/><hr><p>Saved plot: <a href='departure_vs_delay.png' target='_blank'>Flight Delays vs Departure Time</a></p> <br/><img src='departure_vs_delay.png'><h2>Insights:</h2><p>1. Evening Delays: Delays increase significantly after 16:00, especially for United and American Airlines.</p><p>2. Delta's Punctuality: Delta consistently has minimal delays.</p><p>3. American Airlines Peaks: American Airlines faces large delays around morning 8:00 and night 20:00.</p><br/><hr><p>Saved plot: <a href='average_delay_hour.png' target='_blank'>Average Delay by Departure Hour</a></p> <br/><img src='average_delay_hour.png'><h2>Insights:</h2><p> 1. High delays in the evening: Delays peak after 17:00, with the highest around 20:00 (60+ minutes).</p><p>2. Minimal delays at midday: Almost no delays between 14:00 and 15:00.</p><p>3. Morning decline: Delays gradually decrease from 9:00 to 13:00.</p><br/><hr><h3>ANOVA Result:</h3><p> F-statistic:  1.8107, p-value:  0.2246 </p ><h3>Interpretation:</h3><p>There is <strong>no significant difference</strong> in delays between airlines.</p><br/><hr><h2>Key Insights:</h2><h3>a. Summary of Key Findings:</h3><p><strong>Delay Distribution:</strong> Most flights experience delays of less than 30 minutes, with a significant portion facing delays under 10 minutes.</p><p><strong>Average Delay by Airline:</strong> American Airlines shows the highest average delay, followed by United Airlines, while Delta experiences the lowest delays.</p><p><strong>Impact of Departure Time:</strong> Flights departing later in the day tend to experience longer delays, particularly during the evening.</p><p><strong>No Significant Differences Across Airlines:</strong> ANOVA results indicate no statistically significant difference in delays between airlines (p-value: 0.225).</p><br/><hr><h3>b. Impact of Departure Times on Delays:</h3><p><strong>Evening Delays:</strong> Delays peak in the evening, especially after 17:00, with the highest around 20:00.</p><p><strong>Minimal Delays at Midday:</strong> Flights between 14:00 and 15:00 see the least delays.</p><p><strong>Morning Decline:</strong> Delays gradually reduce from 9:00 AM until early afternoon.</p><br/><hr><h3>c. Comparison of Delay Distributions Between Airlines:</h3><p><strong>American Airlines:</strong> Faces the most significant delays, with an average of 30 minutes.</p><p><strong>Delta Airlines:</strong> Demonstrates operational efficiency with the lowest average delays at 5 minutes.</p><p><strong>United Airlines:</strong> Falls in the middle, averaging 22.5 minutes of delay.</p><br/><hr><h3>d. Recommendations:</h3><p><strong>Operational Optimization:</strong> American Airlines should focus on reducing delays, especially during high-delay periods (early morning and evening).</p><p><strong>Resource Allocation:</strong> Airlines should allocate more resources during peak delay times (late afternoon and evening) to improve punctuality.</p><p><strong>Scheduling Adjustments:</strong> Revising flight schedules around high-delay times (17:00-20:00) could help reduce bottlenecks.</p><br/><hr><h3>e. Conclusion:</h3><p>The analysis provides valuable insights into flight delays, highlighting the impact of departure times and variations across airlines. By understanding these patterns, airlines can optimize operations and improve overall efficiency.</p>
+</table><p>Saved plot: <a href='average_delay_airline.png' target='_blank'>Average Delay by Airline</a></p><br/><img src='average_delay_airline.png'><h2>Insights:</h2><p>1. The average delay times vary significantly across different airlines.</p><p>2. American Airlines has the highest average delay, while Delta Airline has the lowest average delay.</p><p>3. The difference in average delay times suggests variations in operational efficiency and performance among airlines.</p><br/><hr><p>Saved plot: <a href='departure_vs_delay.png' target='_blank'>Flight Delays vs Departure Time</a></p> <br/><img src='departure_vs_delay.png'><h2>Insights:</h2><p>1. Evening Delays: Delays increase significantly after 16:00, especially for United and American Airlines.</p><p>2. Delta's Punctuality: Delta consistently has minimal delays.</p><p>3. American Airlines Peaks: American Airlines faces large delays around morning 8:00 and night 20:00.</p><br/><hr><p>Saved plot: <a href='average_delay_hour.png' target='_blank'>Average Delay by Departure Hour</a></p> <br/><img src='average_delay_hour.png'><h2>Insights:</h2><p> 1. High delays in the evening: Delays peak after 17:00, with the highest around 20:00 (60+ minutes).</p><p>2. Minimal delays at midday: Almost no delays between 14:00 and 15:00.</p><p>3. Morning decline: Delays gradually decrease from 9:00 to 13:00.</p><br/><hr><h3>ANOVA Result:</h3><p> F-statistic:  1.4397, p-value:  0.2994 </p><h3>Interpretation:</h3><p>There is <strong>no significant difference</strong> in delays between airlines.</p><br/><hr><h2>Key Insights:</h2><h3>a. Summary of Key Findings:</h3><p><strong>Delay Distribution:</strong> Most flights experience delays of less than 30 minutes, with a significant portion facing delays under 10 minutes.</p><p><strong>Average Delay by Airline:</strong> American Airlines shows the highest average delay, followed by United Airlines, while Delta experiences the lowest delays.</p><p><strong>Impact of Departure Time:</strong> Flights departing later in the day tend to experience longer delays, particularly during the evening.</p><p><strong>No Significant Differences Across Airlines:</strong> ANOVA results indicate no statistically significant difference in delays between airlines (p-value: 0.225).</p><br/><hr><h3>b. Impact of Departure Times on Delays:</h3><p><strong>Evening Delays:</strong> Delays peak in the evening, especially after 17:00, with the highest around 20:00.</p><p><strong>Minimal Delays at Midday:</strong> Flights between 14:00 and 15:00 see the least delays.</p><p><strong>Morning Decline:</strong> Delays gradually reduce from 9:00 AM until early afternoon.</p><br/><hr><h3>c. Comparison of Delay Distributions Between Airlines:</h3><p><strong>American Airlines:</strong> Faces the most significant delays, with an average of 30 minutes.</p><p><strong>Delta Airlines:</strong> Demonstrates operational efficiency with the lowest average delays at 5 minutes.</p><p><strong>United Airlines:</strong> Falls in the middle, averaging 22.5 minutes of delay.</p><br/><hr><h3>d. Recommendations:</h3><p><strong>Operational Optimization:</strong> American Airlines should focus on reducing delays, especially during high-delay periods (early morning and evening).</p><p><strong>Resource Allocation:</strong> Airlines should allocate more resources during peak delay times (late afternoon and evening) to improve punctuality.</p><p><strong>Scheduling Adjustments:</strong> Revising flight schedules around high-delay times (17:00-20:00) could help reduce bottlenecks.</p><br/><hr><h3>e. Conclusion:</h3><p>The analysis provides valuable insights into flight delays, highlighting the impact of departure times and variations across airlines. By understanding these patterns, airlines can optimize operations and improve overall efficiency.</p>
     </body>
     </html>
     
