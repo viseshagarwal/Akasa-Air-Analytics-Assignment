@@ -1,6 +1,6 @@
 pandas
 dotenv
-matplotlib 
+matplotlib
 seaborn
 sqlalchemy
 scipy

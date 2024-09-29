@@ -439,6 +439,47 @@ def data_analysis(df, messages):
     # return delay_summary, average_delay_airline
 
 
+def key_stats(messages):
+    messages.append("<h2>Key Insights:</h2>")
+    messages.append("<h3>a. Summary of Key Findings:</h3>")
+    messages.append("<p><strong>Delay Distribution:</strong> Most flights experience delays of less than 30 minutes, with a significant portion facing delays under 10 minutes.</p>")
+    messages.append("<p><strong>Average Delay by Airline:</strong> American Airlines shows the highest average delay, followed by United Airlines, while Delta experiences the lowest delays.</p>")
+    messages.append(
+        "<p><strong>Impact of Departure Time:</strong> Flights departing later in the day tend to experience longer delays, particularly during the evening.</p>")
+    messages.append("<p><strong>No Significant Differences Across Airlines:</strong> ANOVA results indicate no statistically significant difference in delays between airlines (p-value: 0.225).</p>")
+    messages.append("<br/><hr>")
+
+    messages.append("<h3>b. Impact of Departure Times on Delays:</h3>")
+    messages.append(
+        "<p><strong>Evening Delays:</strong> Delays peak in the evening, especially after 17:00, with the highest around 20:00.</p>")
+    messages.append(
+        "<p><strong>Minimal Delays at Midday:</strong> Flights between 14:00 and 15:00 see the least delays.</p>")
+    messages.append(
+        "<p><strong>Morning Decline:</strong> Delays gradually reduce from 9:00 AM until early afternoon.</p>")
+    messages.append("<br/><hr>")
+
+    messages.append(
+        "<h3>c. Comparison of Delay Distributions Between Airlines:</h3>")
+    messages.append(
+        "<p><strong>American Airlines:</strong> Faces the most significant delays, with an average of 30 minutes.</p>")
+    messages.append(
+        "<p><strong>Delta Airlines:</strong> Demonstrates operational efficiency with the lowest average delays at 5 minutes.</p>")
+    messages.append(
+        "<p><strong>United Airlines:</strong> Falls in the middle, averaging 22.5 minutes of delay.</p>")
+    messages.append("<br/><hr>")
+
+    messages.append("<h3>d. Recommendations:</h3>")
+    messages.append("<p><strong>Operational Optimization:</strong> American Airlines should focus on reducing delays, especially during high-delay periods (early morning and evening).</p>")
+    messages.append("<p><strong>Resource Allocation:</strong> Airlines should allocate more resources during peak delay times (late afternoon and evening) to improve punctuality.</p>")
+    messages.append(
+        "<p><strong>Scheduling Adjustments:</strong> Revising flight schedules around high-delay times (17:00-20:00) could help reduce bottlenecks.</p>")
+    messages.append("<br/><hr>")
+    messages.append("<h3>e. Conclusion:</h3>")
+    messages.append(
+        "<p>The analysis provides valuable insights into flight delays, highlighting the impact of departure times and variations across airlines. By understanding these patterns, airlines can optimize operations and improve overall efficiency.</p>"
+    )
+
+
 def main():
     messages = []
 
@@ -478,6 +519,9 @@ def main():
 
     # Save cleaned data to CSV
     df.to_csv("reports/aviation_data_cleaned.csv", index=False)
+
+    # Key Insights
+    key_stats(messages)
 
     # Generate report
     generate_report(messages)
