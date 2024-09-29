@@ -139,3 +139,7 @@ After completing the analysis in the notebook, you can generate a comprehensive 
    - Key insights and recommendations based on your analysis.
 
 ---
+
+## Disclaimer
+
+This project is an assignment for Akasa Air and is intended for educational purposes only. The data used in this project is for demonstration purposes and does not reflect actual data from Akasa Air or any Airline.
