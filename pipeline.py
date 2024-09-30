@@ -2,6 +2,7 @@ import os
 import subprocess
 import platform
 import shutil
+import webbrowser
 
 
 def run_command(command):
@@ -87,14 +88,17 @@ def check_mysql_server():
     print("Ensure your MySQL server is running and the necessary database is created.")
 
 
-def start_jupyter_notebook():
-    """Starts Jupyter Notebook server if available, otherwise sends a message."""
-    print("Starting Jupyter Notebook server...")
+def start_jupyter_or_vscode():
+    """Starts Jupyter Notebook server if available, otherwise opens VS Code."""
+    print("Checking for Jupyter Notebook...")
     try:
+        # Check if jupyter is available
+        run_command("jupyter --version")
+        print("Jupyter Notebook found. Starting Jupyter Notebook server...")
         run_command("jupyter notebook")
-    except FileNotFoundError:
-        print(
-            "Jupyter Notebook is not found or not working. Please install it and try again.")
+    except Exception:
+        print("Jupyter Notebook not found. Opening VS Code...")
+        run_command("code .")  # Opens VS Code in the current folder
 
 
 def generate_html_report():
@@ -105,6 +109,11 @@ def generate_html_report():
         print("HTML report generated: reports/aviation_report.html")
     else:
         print("HTML report already exists. Skipping report generation step.")
+
+    # Open the HTML report in the default browser
+    report_path = os.path.abspath("reports/aviation_report.html")
+    print(f"Opening the report in the browser: {report_path}")
+    webbrowser.open(f"file://{report_path}")
 
 
 def main():
@@ -121,10 +130,10 @@ def main():
     # Step 4: Ensure MySQL server is running
     check_mysql_server()
 
-    # Step 5: Start Jupyter Notebook and check if it's available
-    start_jupyter_notebook()
+    # Step 5: Start Jupyter Notebook if available, otherwise VS Code
+    start_jupyter_or_vscode()
 
-    # Step 6: Generate HTML report after analysis
+    # Step 6: Generate HTML report after analysis and open it in the browser
     generate_html_report()
 
 
