@@ -13,11 +13,38 @@ def run_command(command):
         exit(1)
 
 
+def check_python():
+    """Checks for Python and returns the command to use."""
+    try:
+        run_command("python --version")
+        return "python"
+    except subprocess.CalledProcessError:
+        try:
+            run_command("python3 --version")
+            return "python3"
+        except subprocess.CalledProcessError:
+            raise EnvironmentError(
+                "Python is not installed. Please install Python.")
+
+
+def check_pip(python_command):
+    """Checks for pip and returns the command to use."""
+    try:
+        run_command(f"{python_command} -m pip --version")
+        return "pip"
+    except subprocess.CalledProcessError:
+        try:
+            run_command(f"{python_command}3 -m pip --version")
+            return "pip3"
+        except subprocess.CalledProcessError:
+            raise EnvironmentError("pip is not installed. Please install pip.")
+
+
 def create_virtual_environment():
     """Creates a virtual environment."""
     if not os.path.exists("venv"):
         print("Creating virtual environment...")
-        run_command("python -m venv venv")
+        run_command(f"{python_command} -m venv venv")
         print("Virtual environment created.")
     else:
         print("Virtual environment already exists. Skipping creation step.")
@@ -28,16 +55,19 @@ def activate_virtual_environment():
     print("Activating virtual environment...")
     os_name = platform.system()
     if os_name == "Windows":
-        run_command("venv\\Scripts\\activate")
+        # For Windows, use `cmd` to activate the environment
+        print("Use the following command to activate the virtual environment:")
+        print("venv\\Scripts\\activate")
     else:
-        run_command("source venv/bin/activate")
-    print("Virtual environment activated.")
+        print("Use the following command to activate the virtual environment:")
+        print("source venv/bin/activate")
+    print("Virtual environment activation command displayed above.")
 
 
-def install_dependencies():
+def install_dependencies(pip_command):
     """Installs required dependencies."""
     print("Installing dependencies from requirements.txt...")
-    run_command("pip install -r requirements.txt")
+    run_command(f"{pip_command} install -r requirements.txt")
     print("Dependencies installed.")
 
 

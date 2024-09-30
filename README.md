@@ -26,6 +26,8 @@ Akasa-Air-Analytics-Assignment/
 ├── .gitignore
 ├── pipeline.py
 ├── Assignment.ipynb
+├── Assignment.pdf
+├── Report.pdf
 ├── aviation_data.csv
 ├── generate_report.py
 ├── README.md
