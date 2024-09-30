@@ -12,24 +12,14 @@ def run_command(command):
         exit(1)
 
 
-def clone_repository(repo_url):
-    """Clones the repository."""
-    print("Cloning the repository...")
-    run_command(f"git clone {repo_url}")
-    print("Repository cloned.")
-
-
-def navigate_to_project_directory():
-    """Navigate to the project directory."""
-    os.chdir("Akasa-Air-Analytics-Assignment")
-    print("Navigated to project directory.")
-
-
 def create_virtual_environment():
     """Creates a virtual environment."""
-    print("Creating virtual environment...")
-    run_command("python -m venv venv")
-    print("Virtual environment created.")
+    if not os.path.exists("venv"):
+        print("Creating virtual environment...")
+        run_command("python -m venv venv")
+        print("Virtual environment created.")
+    else:
+        print("Virtual environment already exists. Skipping creation step.")
 
 
 def activate_virtual_environment():
@@ -77,16 +67,19 @@ def write_env_file(env_values):
 
 def setup_env_file():
     """Sets up the .env file interactively."""
-    print("Setting up .env file...")
-    if os.path.exists('.env.example'):
-        shutil.copy('.env.example', '.env')
-        print(".env file created from .env.example.")
+    if os.path.exists('.env'):
+        print(".env file already exists. Skipping creation step.")
     else:
-        print(".env.example file not found. Creating a new .env file.")
+        print("Setting up .env file...")
+        if os.path.exists('.env.example'):
+            shutil.copy('.env.example', '.env')
+            print(".env file created from .env.example.")
+        else:
+            print(".env.example file not found. Creating a new .env file.")
 
-    # Get values from the user and write them to the .env file
-    env_values = get_env_values()
-    write_env_file(env_values)
+        # Get values from the user and write them to the .env file
+        env_values = get_env_values()
+        write_env_file(env_values)
 
 
 def check_mysql_server():
@@ -95,44 +88,43 @@ def check_mysql_server():
 
 
 def start_jupyter_notebook():
-    """Starts Jupyter Notebook server."""
+    """Starts Jupyter Notebook server if available, otherwise sends a message."""
     print("Starting Jupyter Notebook server...")
-    run_command("jupyter notebook")
+    try:
+        run_command("jupyter notebook")
+    except FileNotFoundError:
+        print(
+            "Jupyter Notebook is not found or not working. Please install it and try again.")
 
 
 def generate_html_report():
     """Runs the script to generate the HTML report."""
-    print("Generating HTML report...")
-    run_command("python generate_report.py")
-    print("HTML report generated: reports/aviation_report.html")
+    if not os.path.exists("reports/aviation_report.html"):
+        print("Generating HTML report...")
+        run_command("python generate_report.py")
+        print("HTML report generated: reports/aviation_report.html")
+    else:
+        print("HTML report already exists. Skipping report generation step.")
 
 
 def main():
-    repo_url = "https://github.com/viseshagarwal/Akasa-Air-Analytics-Assignment.git"
-
-    # Step 1: Clone the repository
-    clone_repository(repo_url)
-
-    # Navigate to the project directory
-    navigate_to_project_directory()
-
-    # Step 2: Set up and activate virtual environment
+    # Step 1: Set up and activate virtual environment
     create_virtual_environment()
     activate_virtual_environment()
 
-    # Step 3: Install dependencies
+    # Step 2: Install dependencies
     install_dependencies()
 
-    # Step 4: Set up .env file interactively
+    # Step 3: Set up .env file interactively
     setup_env_file()
 
-    # Step 5: Ensure MySQL server is running
+    # Step 4: Ensure MySQL server is running
     check_mysql_server()
 
-    # Step 6: Start Jupyter Notebook and guide user to execute notebook cells manually
+    # Step 5: Start Jupyter Notebook and check if it's available
     start_jupyter_notebook()
 
-    # Step 7: Generate HTML report after analysis
+    # Step 6: Generate HTML report after analysis
     generate_html_report()
 
 
