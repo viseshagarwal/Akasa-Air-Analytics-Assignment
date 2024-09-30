@@ -91,14 +91,20 @@ def check_mysql_server():
 def start_jupyter_or_vscode():
     """Starts Jupyter Notebook server if available, otherwise opens VS Code."""
     print("Checking for Jupyter Notebook...")
-    try:
-        # Check if jupyter is available
-        run_command("jupyter --version")
-        print("Jupyter Notebook found. Starting Jupyter Notebook server...")
-        run_command("jupyter notebook")
-    except Exception:
+
+    # Check if Jupyter is installed by checking if it's in the system path
+    if shutil.which("jupyter"):
+        try:
+            print("Jupyter Notebook found. Starting Jupyter Notebook server...")
+            run_command("jupyter notebook")
+        except Exception as e:
+            print(f"Failed to start Jupyter Notebook: {e}")
+    else:
         print("Jupyter Notebook not found. Opening VS Code...")
-        run_command("code .")  # Opens VS Code in the current folder
+        try:
+            run_command("code .")  # Opens VS Code in the current folder
+        except Exception as e:
+            print(f"Failed to open VS Code: {e}")
 
 
 def generate_html_report():
