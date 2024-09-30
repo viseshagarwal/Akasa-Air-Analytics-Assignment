@@ -24,6 +24,7 @@ Akasa-Air-Analytics-Assignment/
 │
 ├── .env.example
 ├── .gitignore
+├── pipeline.py
 ├── Assignment.ipynb
 ├── aviation_data.csv
 ├── generate_report.py
@@ -34,36 +35,77 @@ Akasa-Air-Analytics-Assignment/
 ## Requirements
 
 - Python 3.x
-- Jupyter Notebook
-- Required Python libraries (listed in requirements.txt)
+- Jupyter Notebook (if manually running the notebook)
+- Required Python libraries (listed in `requirements.txt`)
+- MySQL Server (for database setup)
+- VS Code
 
-## Installation
+---
+
+## Automated Setup and Execution (Recommended)
+
+For a streamlined process, the `pipeline.py` script automates the setup, execution, and report generation.
+
+### Steps for Automated Pipeline:
+
+1. **Clone the Repository**:
+
+   First, clone the project repository from GitHub:
+
+   ```bash
+   git clone https://github.com/viseshagarwal/Akasa-Air-Analytics-Assignment.git
+   ```
+
+2. **Navigate to the Project Directory**:
+
+   ```bash
+   cd Akasa-Air-Analytics-Assignment
+   ```
+
+3. **Run the `pipeline.py` Script**:
+
+   Now, simply run the `pipeline.py` file:
+
+   ```bash
+   python pipeline.py
+   ```
+
+### What the `pipeline.py` Script Does:
+
+- **Virtual Environment**: It creates and activates a virtual environment.
+- **Dependency Installation**: Automatically installs all necessary dependencies using `requirements.txt`.
+- **Environment Setup**: It will prompt you to enter your MySQL database credentials and create a `.env` file based on your inputs.
+- **Jupyter Notebook / VS Code**: It will try to launch Jupyter Notebook. If Jupyter is not installed, it will automatically open VS Code, allowing you to run the notebook manually.
+- **Report Generation**: After executing the notebook, the script will generate an HTML report (`aviation_report.html`) in the `reports/` directory and open it in your browser.
+
+### Outcome:
+
+After running the `pipeline.py` script:
+
+- All necessary steps, including setting up the virtual environment, installing dependencies, and running the notebook, will be handled.
+- The generated HTML report (`aviation_report.html`) will open automatically in your default browser, summarizing the analysis and visualizations.
+
+---
+
+## Manual Setup and Execution (if `pipeline.py` fails)
+
+In case the `pipeline.py` script fails or you prefer to manually run the project, follow these steps:
 
 ### Step 1: **Set Up a Virtual Environment**
 
-1. Clone the repository:
+1. Navigate to the project directory:
 
-```bash
+   ```bash
+   cd Akasa-Air-Analytics-Assignment
+   ```
 
-git clone https://github.com/viseshagarwal/Akasa-Air-Analytics-Assignment.git
-
-```
-
-2. Navigate to the project directory:
-
-```bash
-
-cd Akasa-Air-Analytics-Assignment
-
-```
-
-3. Create a virtual environment:
+2. Create a virtual environment:
 
    ```bash
    python -m venv venv
    ```
 
-4. Activate the virtual environment:
+3. Activate the virtual environment:
 
    - On **Windows**:
      ```bash
@@ -73,8 +115,6 @@ cd Akasa-Air-Analytics-Assignment
      ```bash
      source venv/bin/activate
      ```
-
-5. Now that the virtual environment is activated, install the project dependencies.
 
 ### Step 2: **Install Dependencies**
 
@@ -86,14 +126,14 @@ pip install -r requirements.txt
 
 ### Step 3: **Set Up the `.env` File**
 
-1. You have an `.env.example` file that serves as a template for the `.env` file. Rename `.env.example` to `.env`:
+1. Copy the `.env.example` file to create a `.env` file:
 
    ```bash
    cp .env.example .env
    ```
 
-2. Open `.env` and add your MySQL database credentials:
-   ```env
+2. Open the `.env` file and add your MySQL database credentials:
+   ```plaintext
    DB_USER=""
    DB_PASSWORD=""
    DB_HOST=""
@@ -101,13 +141,11 @@ pip install -r requirements.txt
    DB_PORT=""
    ```
 
-These environment variables will be loaded automatically by `python-dotenv` and used to connect to your database.
-
 ### Step 4: **Database Setup**
 
 Ensure that your MySQL server is running and that you have created the necessary database with the same name as in the `.env` file. The database should contain the data for this analysis.
 
-### Step 5: **Running the Jupyter Notebook**
+### Step 5: **Run the Jupyter Notebook**
 
 1. Start the Jupyter Notebook server from your terminal:
 
@@ -116,30 +154,33 @@ Ensure that your MySQL server is running and that you have created the necessary
    ```
 
 2. Open `Assignment.ipynb` and execute the cells step by step:
-
    - The notebook performs data loading, cleaning, and normalization.
-   - It visualizes key insights using `matplotlib` and `seaborn`.
-   - The visualizations (e.g., bar charts, histograms) are saved as `.png` files in the `reports/` folder.
+   - Visualizes key insights using `matplotlib` and `seaborn`.
+   - Saves visualizations (e.g., bar charts, histograms) as `.png` files in the `reports/` folder.
 
-3. Once you've completed the analysis, make sure all cells have been run successfully. The output visualizations will automatically be saved in the `reports/` folder.
+### Step 6: **Generate the HTML Report**
 
-### Step 6: **Generating the HTML Report**
+After completing the analysis in the notebook:
 
-After completing the analysis in the notebook, you can generate a comprehensive HTML report.
-
-1. Run the `generate_report.py` script:
+1. Run the `generate_report.py` script to generate the HTML report:
 
    ```bash
    python generate_report.py
    ```
 
-2. The script will produce an HTML file (`aviation_report.html`) in the `reports/` directory, which contains:
-   - A summary of data cleaning and normalization steps.
-   - Visualizations, such as the average delay per airline, delay distribution, and more.
-   - Key insights and recommendations based on your analysis.
+2. The report will be saved as `aviation_report.html` in the `reports/` directory. Open it in your browser to view the analysis.
+
+---
+
+## Notes
+
+- If Jupyter Notebook is not installed, you can manually execute the notebook using VS Code or any other Python IDE.
+- Ensure that your MySQL server is running and the necessary database is created before running the scripts.
 
 ---
 
 ## Disclaimer
 
 This project is an assignment for Akasa Air and is intended for educational purposes only. The data used in this project is for demonstration purposes and does not reflect actual data from Akasa Air or any Airline.
+
+---
